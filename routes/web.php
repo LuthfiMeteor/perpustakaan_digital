@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 route::group(['middleware' => 'auth'], function() {
     route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

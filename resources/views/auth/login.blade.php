@@ -110,6 +110,11 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                            @error('google')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
@@ -132,7 +137,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+                        <a href="{{ route('google.login') }}" class="btn btn-icon btn-label-google-plus me-3">
                             <i class="tf-icons fa-brands fa-google fs-5"></i>
                         </a>
                     </div>
