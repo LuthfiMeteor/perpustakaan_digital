@@ -368,10 +368,10 @@
                     <div class="avatar avatar-online">
                         @if (Auth::user()->avatar)
                             <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" alt
-                                class="h-auto rounded-circle" />
+                                class="h-100 rounded-circle" />
                         @else
                             <img src="{{ asset('asset-template/img/avatars/1.png') }}" alt
-                                class="h-auto rounded-circle" />
+                                class="h-100 rounded-circle" />
                         @endif
                     </div>
                 </a>
@@ -383,16 +383,16 @@
                                     <div class="avatar avatar-online">
                                         @if (Auth::user()->avatar)
                                             <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" alt
-                                                class="h-auto rounded-circle" />
+                                                class="h-100 rounded-circle" style="object-fit: contain"/>
                                         @else
                                             <img src="{{ asset('asset-template/img/avatars/1.png') }}" alt
-                                                class="h-auto rounded-circle" />
+                                                class="h-100 rounded-circle" />
                                         @endif
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-medium d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-medium d-block">{{ Auth::user()->name }}</span>
+                                    <small class="text-muted">-</small>
                                 </div>
                             </div>
                         </a>
@@ -401,7 +401,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="pages-profile-user.html">
+                        <a class="dropdown-item" href="{{ route('profile') }}">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
                             <span class="align-middle">My Profile</span>
                         </a>

@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (phoneNumber) {
       new Cleave(phoneNumber, {
         phone: true,
-        phoneRegionCode: 'US'
+        phoneRegionCode: 'ID'
       });
     }
 

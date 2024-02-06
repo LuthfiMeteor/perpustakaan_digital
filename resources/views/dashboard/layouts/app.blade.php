@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('asset-template/vendor/css/rtl/theme-default.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset-template/css/demo.css') }}" />
 
+    @stack('css')
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('asset-template/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset-template/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -97,6 +98,7 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
+    @stack('script')
     <script src="{{ asset('asset-template/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('asset-template/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('asset-template/vendor/js/bootstrap.js') }}"></script>
