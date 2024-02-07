@@ -3,9 +3,10 @@
         <a class="nav-link {{ Request::route()->getName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
             <i class="ti-xs ti ti-users me-1"></i> Account
         </a>
-    </li>    
+    </li>
     <li class="nav-item">
-        <a class="nav-link {{ Request::route()->getName() == 'profile.security' ? 'active':''}}" href="{{ route('profile.security') }}"><i class="ti-xs ti ti-lock me-1"></i>
+        <a class="nav-link {{ Request::route()->getName() == 'profile.security' ? 'active' : '' }}"
+            href="{{ route('profile.security') }}"><i class="ti-xs ti ti-lock me-1"></i>
             Security</a>
     </li>
     <li class="nav-item">
@@ -13,11 +14,8 @@
             Billing & Plans</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="pages-account-settings-notifications.html"><i class="ti-xs ti ti-bell me-1"></i>
-            Notifications</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ Request::route()->getName() == 'profile.connections' ? 'active':''}}" href="{{ route('profile.connections') }}"><i class="ti-xs ti ti-link me-1"></i>
+        <a class="nav-link {{ Request::route()->getName() == 'profile.connections' ? 'active' : '' }}"
+            href="{{ route('profile.connections') }}"><i class="ti-xs ti ti-link me-1"></i>
             Connections</a>
     </li>
 </ul>

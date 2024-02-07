@@ -29,11 +29,14 @@ route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 Route::get('connect/google', [GoogleController::class, 'connectGoogle'])->name('connect.google');
 
 route::group(['middleware'=>'auth'], function(){
-    route::get('google-password-step', [GoogleController::class, 'googlePasswordSet'])->name('google.setup');
+    route::get('google-password-step', [GoogleController::class, 'googlePasswordSet'])->name('google.setup')->middleware('GoogleSetUpSuccess');
+    route::post('goole-password-setup', [GoogleController::class, 'setPasswordStore'])->name('google.setup-store');
 });
 
-route::group(['middleware' => 'auth'], function() {
+route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
     route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Managemen Buku
     route::get('manajemen-buku', [ManajemenBukuController::class, 'index'])->name('manajemenBuku');
     route::get('manajemen-buku-json', [ManajemenBukuController::class, 'json'])->name('bukuJson');
     route::get('manajemen-buku-lihat/{id}', [ManajemenBukuController::class, 'lihat'])->name('bukuLihat');
@@ -41,6 +44,9 @@ route::group(['middleware' => 'auth'], function() {
     route::post('manajemen-buku-add', [ManajemenBukuController::class, 'store'])->name('bukuAdd');
     route::post('manajemen-buku-update', [ManajemenBukuController::class, 'update'])->name('bukuUpdate');
     Route::get('/manajemen-buku-edit/{id}', [ManajemenBukuController::class, 'edit'])->name('bukuEdit');
+
+    // Google SetUp Password
+    // 
     route::prefix('dashboard')->group(function() {
         route::get('profile', [ProfileController::class, 'profile'])->name('profile');
         route::post('profile-account', [ProfileController::class, 'updateAccount'])->name('profile.account');

@@ -64,5 +64,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'GoogleSetUp' => \App\Http\Middleware\GoogleSetupMiddleware::class,
+        'GoogleSetUpSuccess' => \App\Http\Middleware\GoogleSetupSuccesfullMiddleware::class,
     ];
 }

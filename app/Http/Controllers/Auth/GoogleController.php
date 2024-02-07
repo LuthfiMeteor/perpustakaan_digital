@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\Routing\Route;
@@ -75,4 +76,20 @@ class GoogleController extends Controller
     public function googlePasswordSet(){
         return view('auth.google-setup');
     }
+    public function setPasswordStore(Request $request)
+{
+    // dd($request->all());
+    $request->validate([
+        'password' => 'required|min:8',
+        'password_confirmation' => 'required|same:password',
+    ],[
+        'confirmPassword.same'=>'Confirm Password Not Same with new password',
+    ]);
+
+    $user = User::find(Auth::id());
+    $user->password = Hash::make($request->password);
+    $user->save(); // Use save() instead of update()
+
+    return redirect(route('dashboard'));
+}
 }
