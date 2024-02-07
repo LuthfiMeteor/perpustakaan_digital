@@ -37,6 +37,7 @@
 
     <!-- Page CSS -->
 
+    @stack('css')
     <link rel="stylesheet" href="{{ asset('asset-template/vendor/css/pages/front-page-landing.css') }}" />
 
     <!-- Helpers -->

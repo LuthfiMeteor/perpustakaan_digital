@@ -25,6 +25,12 @@ Auth::routes();
 route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+Route::get('connect/google', [GoogleController::class, 'connectGoogle'])->name('connect.google');
+
+route::group(['middleware'=>'auth'], function(){
+    route::get('google-password-step', [GoogleController::class, 'googlePasswordSet'])->name('google.setup');
+});
+
 route::group(['middleware' => 'auth'], function() {
     route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     route::prefix('dashboard')->group(function() {
@@ -32,6 +38,9 @@ route::group(['middleware' => 'auth'], function() {
         route::post('profile-account', [ProfileController::class, 'updateAccount'])->name('profile.account');
 
         route::get('profile-security', [ProfileController::class, 'profileSecurity'])->name('profile.security');
+        route::post('update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+        route::get('profile-connections', [ProfileController::class, 'profileConnections'])->name('profile.connections');
     });
 });
 

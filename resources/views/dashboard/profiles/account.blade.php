@@ -5,28 +5,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills flex-column flex-md-row mb-4">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('profile') }}"><i class="ti-xs ti ti-users me-1"></i>
-                            Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.security') }}"><i
-                                class="ti-xs ti ti-lock me-1"></i> Security</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-billing.html"><i
-                                class="ti-xs ti ti-file-description me-1"></i> Billing & Plans</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-notifications.html"><i
-                                class="ti-xs ti ti-bell me-1"></i> Notifications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-connections.html"><i
-                                class="ti-xs ti ti-link me-1"></i> Connections</a>
-                    </li>
-                </ul>
+                @include('dashboard.profiles.components.navbar-profile')
                 <div class="card mb-4">
                     <h5 class="card-header">Profile Details</h5>
                     <!-- Account -->
@@ -46,8 +25,8 @@
                                     <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
                                         <span class="d-none d-sm-block">Upload new photo</span>
                                         <i class="ti ti-upload d-block d-sm-none"></i>
-                                        <input type="file" name="uploadphoto" id="upload" class="account-file-input" hidden
-                                            accept="image/png, image/jpeg" />
+                                        <input type="file" name="uploadphoto" id="upload" class="account-file-input"
+                                            hidden accept="image/png, image/jpeg" />
                                     </label>
                                     <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
                                         <i class="ti ti-refresh-dot d-block d-sm-none"></i>
@@ -120,7 +99,7 @@
     </div>
 @endsection
 @push('script')
-<script src="{{ asset('asset-template/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('asset-template/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
     <script src="{{ asset('asset-template/vendor/libs/popper/popper.js') }}"></script>
     {{-- <script src="{{ asset('asset-template/vendor/js/bootstrap.js') }}"></script> --}}

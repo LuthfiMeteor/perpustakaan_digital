@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -42,5 +44,31 @@ class ProfileController extends Controller
     {
         $logs = auth()->user()->authentications;
         return view('dashboard.profiles.security',compact('logs'));
+    }
+    public function updatePassword(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'currentPassword' => 'required',
+            'newPassword' => 'required|min:8',
+            'confirmPassword' => 'required|same:newPassword',
+        ],[
+            'confirmPassword.same'=>'Confirm Password Not Same with new password',
+        ]);
+        if (!Hash::check($request->currentPassword, Auth::user()->password)) {
+            return redirect()
+                ->back()
+                ->withErrors(['currentPassword' => 'Password does not match']);
+        }
+        $user = User::find(Auth::id());
+        $user->password = Hash::make($request->newPassword);
+        $user->update();
+        Auth::logout();
+        return redirect()
+            ->route('login')
+            ->with('success', 'Password updated successfully');
+    }
+    public function profileConnections(){
+        return view('dashboard.profiles.connecttions');
     }
 }
