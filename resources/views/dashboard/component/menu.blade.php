@@ -25,53 +25,33 @@
     </div>
 
     <div class="menu-inner-shadow"></div>
+    <br>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboards -->
-        <li class="menu-item active open">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
-                <div class="badge bg-primary rounded-pill ms-auto">3</div>
+
+        <li class="menu-item">
+            <a class="menu-link {{ Request::route()->getName() == 'dashboard' ? 'active' : '' }}" href="{{ route('dashboard') }}" style="{{ Request::route()->getName() == 'dashboard' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                <span class="menu-bullet">
+                    <span class="menu-icon tf-icons ti ti-home"></span>
+                </span>
+                <span class="menu-title">Dashboard</span>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item active">
-                    <a href="index.html" class="menu-link">
-                        <div data-i18n="Analytics">Analytics</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="dashboards-crm.html" class="menu-link">
-                        <div data-i18n="CRM">CRM</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="app-ecommerce-dashboard.html" class="menu-link">
-                        <div data-i18n="eCommerce">eCommerce</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="app-logistics-dashboard.html" class="menu-link">
-                        <div data-i18n="Logistics">Logistics</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="app-academy-dashboard.html" class="menu-link">
-                        <div data-i18n="Academy">Academy</div>
-                    </a>
-                </li>
-            </ul>
         </li>
 
-        <!-- Apps & Pages -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Apps &amp; Pages</span>
-        </li>
         <li class="menu-item">
-            <a href="app-email.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-mail"></i>
-                <div data-i18n="Email">Email</div>
+            <a class="menu-link
+            {{ Request::route()->getName() == 'manajemenBuku' ? 'active' : '' }}
+            {{ Request::route()->getName() == 'bukuEdit' ? 'active' : '' }}
+            " href="{{ route('manajemenBuku') }}" style="
+            {{ Request::route()->getName() == 'manajemenBuku' ? 'background-color: #4A2D14; color: white;' : '' }}
+            {{ Request::route()->getName() == 'bukuEdit' ? 'background-color: #4A2D14; color: white;' : '' }}
+            ">
+                <span class="menu-bullet">
+                    <span class="menu-icon tf-icons ti ti-book"></span>
+                </span>
+                <span class="menu-title">Manajemen Buku</span>
             </a>
         </li>
+        
     </ul>
 </aside>
