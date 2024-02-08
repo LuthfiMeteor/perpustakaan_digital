@@ -10,8 +10,8 @@
             Security</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="pages-account-settings-billing.html"><i class="ti-xs ti ti-file-description me-1"></i>
-            Billing & Plans</a>
+        <a class="nav-link {{ Request::route()->getName() == 'profile.membership' ? 'active' : '' }}" href="{{ route('profile.membership') }}"><i class="ti-xs ti ti-file-description me-1"></i>
+            Membership</a>
     </li>
     <li class="nav-item">
         <a class="nav-link {{ Request::route()->getName() == 'profile.connections' ? 'active' : '' }}"

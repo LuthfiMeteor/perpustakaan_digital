@@ -47,7 +47,7 @@ class GoogleController extends Controller
                     ->route('login')
                     ->withErrors(['google' => 'This email is already registered with password sign-in. Please sign in using your password.']);
             }
-            $AvatarNama = $this->getSocialAvatar($user->avatar, 'public/profiles/', $user->id);
+            $AvatarNama = $this->getSocialAvatar($user->avatar, 'profiles/', $user->id);
             if (!$authUser) {
                 $authUser = User::create([
                     'google_id' => $user->id,

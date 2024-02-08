@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\ManajemenBukuController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,10 @@ route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
         route::post('update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
         route::get('profile-connections', [ProfileController::class, 'profileConnections'])->name('profile.connections');
+
+        route::get('profile-membership',[ProfileController::class, 'memberhsipUser'])->name('profile.membership');
+
+        route::post('profile-buy-membership', [ProfileController::class, 'buyMembership'])->name('profile.buymembership');
     });
 });
 
