@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeactiveAccountModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,12 @@ class GoogleController extends Controller
             }
             $AvatarNama = $this->getSocialAvatar($user->avatar, 'profiles/', $user->id);
             if (!$authUser) {
+                $deactiveAccount = DeactiveAccountModel::where('email', $user->email)->count();
+                if ($deactiveAccount > 0) {
+                    return redirect()
+                    ->route('login')
+                    ->withErrors(['google' => 'Account Has Deactive. Please Contact Support Team.']);
+                }
                 $authUser = User::create([
                     'google_id' => $user->id,
                     'name' => $user->name,

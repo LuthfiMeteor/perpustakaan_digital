@@ -219,7 +219,6 @@ class ProfileController extends Controller
     {
         // dd($request->all());
         $submittedOTP = $request->otp;
-
         $token = OtpEmailDeactiveModel::where('email', Auth::user()->email)
             ->orderBy('created_at', 'desc')
             ->first();
@@ -229,6 +228,7 @@ class ProfileController extends Controller
         $verificationResult = Hash::check($otpString, $token->token);
         // dd($verificationResult);
         if($verificationResult){
+            $otp = DB::table('non_aktif_otp')->where('email', Auth::user()->email)->delete();
             $user = DB::table('users')->where('id', Auth::id())->delete();
             // Auth::logout();
             return response()->json(['success' => true, 'message' => 'OTP verification successful']);

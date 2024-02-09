@@ -91,11 +91,9 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">{{ __('Password') }}</label>
-                                {{-- @if (Route::has('password.request'))
-                  <a href="{{ route('forgot-password') }}">
-                    <small>Forgot Password?</small>
-                  </a>
-                @endif --}}
+                                <a href="{{ route('password.request') }}">
+                                    <small>Forgot Password?</small>
+                                </a>
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password"

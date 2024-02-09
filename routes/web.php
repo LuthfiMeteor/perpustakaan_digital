@@ -45,7 +45,6 @@ route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
     route::post('manajemen-buku-add', [ManajemenBukuController::class, 'store'])->name('bukuAdd');
     route::post('manajemen-buku-update', [ManajemenBukuController::class, 'update'])->name('bukuUpdate');
     Route::get('/manajemen-buku-edit/{id}', [ManajemenBukuController::class, 'edit'])->name('bukuEdit');
-
     // Google SetUp Password
     // 
     route::prefix('dashboard')->group(function() {
