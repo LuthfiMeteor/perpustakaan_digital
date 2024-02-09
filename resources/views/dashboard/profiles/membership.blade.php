@@ -5,39 +5,123 @@
 
         @include('dashboard.profiles.components.navbar-profile')
         <div class="row">
-            <div class="col-md-12">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="badge bg-label-primary">Standard</span>
-                            <div class="d-flex justify-content-center">
-                                <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary fw-normal">Rp.</sup>
-                                <h1 class="mb-0 text-primary">0</h1>
-                                <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/month</sub>
+            @if (Auth::user()->check_membership)
+                {{-- @dd(Auth::user()->check_membership->membership_type) --}}
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="badge bg-label-warning">
+                                    @if (Auth::user()->check_membership->membership_type == '1')
+                                        1 Month Premium
+                                    @elseif (Auth::user()->check_membership->membership_type == '2')
+                                        3 Month remium
+                                    @elseif (Auth::user()->check_membership->membership_type == '3')
+                                        1 Year Premium
+                                    @endif
+                                </span>
+                                <div class="d-flex justify-content-center">
+                                    <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary fw-normal">Rp.</sup>
+                                    <h1 class="mb-0 text-primary">
+                                        {{ number_format(Auth::user()->check_membership->harga, 0, ',', '.') }}</h1>
+                                    <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/@if (Auth::user()->check_membership->membership_type == '2')
+                                            3 Month
+                                        @elseif (Auth::user()->check_membership->membership_type == '3')
+                                            Year
+                                        @elseif (Auth::user()->check_membership->membership_type == '1')
+                                            Month
+                                        @endif
+                                    </sub>
+                                </div>
                             </div>
-                        </div>
-                        <ul class="ps-3 g-2 my-3">
-                            {{-- <li class="mb-2">10 Users</li> --}}
-                            {{-- <li class="mb-2"></li> --}}
-                            <li>Baca Buku Standard</li>
-                        </ul>
-                        {{-- <div class="d-flex justify-content-between align-items-center mb-1 fw-medium text-heading">
-                            <span>Days</span>
-                            <span>65% Completed</span>
-                        </div>
-                        <div class="progress mb-1" style="height: 8px">
-                            <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div> --}}
-                        {{-- <span>4 days remaining</span> --}}
-                        <div class="d-grid w-100 mt-4">
-                            <button class="btn btn-primary" data-bs-target="#pricingModal" data-bs-toggle="modal">
-                                Upgrade Plan
-                            </button>
+                            <ul class="ps-3 g-2 my-3">
+                                {{-- <li class="mb-2">10 Users</li> --}}
+                                {{-- <li class="mb-2"></li> --}}
+                                <li>
+                                    @if (Auth::user()->check_membership->membership_type == '1')
+                                        read premium books for 1 months
+                                    @elseif (Auth::user()->check_membership->membership_type == '2')
+                                        read premium books for 3 months
+                                    @elseif (Auth::user()->check_membership->membership_type == '3')
+                                        read premium books for a year
+                                    @endif
+                                </li>
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center mb-1 fw-medium text-heading">
+                                <span>Days</span>
+                                <span>{{ Auth::user()->check_membership->getPercentageDaysRemainingAttribute() }}%
+                                    Completed</span>
+                            </div>
+                            <div class="progress mb-1" style="height: 8px">
+                                <div class="progress-bar" role="progressbar"
+                                    style="width: {{ Auth::user()->check_membership->getPercentageDaysRemainingAttribute() }}%"
+                                    aria-valuenow="{{ Auth::user()->check_membership->getPercentageDaysRemainingAttribute() }}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <span>{{ Auth::user()->check_membership->getDaysRemainingFormattedAttribute() }} days
+                                remaining</span>
+                            <div class="d-grid w-100 mt-4">
+                                {{-- <button class="btn btn-primary" data-bs-target="#pricingModal" data-bs-toggle="modal">
+                                Buy Membership
+                            </button> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
+            @else
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="badge bg-label-primary">Standard</span>
+                                <div class="d-flex justify-content-center">
+                                    <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary fw-normal">Rp.</sup>
+                                    <h1 class="mb-0 text-primary">0</h1>
+                                    <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/month</sub>
+                                </div>
+                            </div>
+                            <ul class="ps-3 g-2 my-3">
+                                {{-- <li class="mb-2">10 Users</li> --}}
+                                {{-- <li class="mb-2"></li> --}}
+                                <li>Baca Buku Standard</li>
+                            </ul>
+                            {{-- <div class="d-flex justify-content-between align-items-center mb-1 fw-medium text-heading">
+                                <span>Days</span>
+                                <span>65% Completed</span>
+                            </div>
+                            <div class="progress mb-1" style="height: 8px">
+                                <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div> --}}
+                            {{-- <span>4 days remaining</span> --}}
+                            <div class="d-grid w-100 mt-4">
+                                <button class="btn btn-primary" data-bs-target="#pricingModal" data-bs-toggle="modal">
+                                    Purchase Membership
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        <div class="card">
+            <!-- Billing History -->
+            <h5 class="card-header">Billing History</h5>
+            <div class="card-datatable table-responsive">
+                <table class="invoice-list-table table border-top">
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th class="text-truncate">Issued Date</th>
+                            <th>Invoice Status</th>
+                            <th>Start Membership</th>
+                            <th>End Membership</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
+            <!--/ Billing History -->
         </div>
     </div>
 
@@ -294,6 +378,7 @@
     <script src="{{ asset('asset-template/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
 
     <!-- Page JS -->
+    {{-- <script src="{{ asset('asset-template/js/app-invoice-list.js')}}"></script> --}}
     <script src="{{ asset('asset-template/js/pages-account-settings-account.js') }}"></script>
     <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ config('midtrans.client_key') }}"></script>
@@ -316,6 +401,14 @@
                         window.snap.pay(e.snaptoken, {
                             onSuccess: function(result) {
                                 $('#fullscreenModal').modal('show');
+                                setTimeout(function() {
+                                    $('#fullscreenModal').modal('hide');
+                                    setTimeout(function() {
+                                            window.location.href =
+                                                '{{ route('profile.membership') }}';
+                                        },
+                                        1000);
+                                }, 3000);
                             },
                             onPending: function(result) {
                                 alert("wating your payment!");
@@ -338,6 +431,39 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        $(function() {
+            // Variable declaration for table
+            var dt_invoice_table = $('.invoice-list-table');
+
+            // Invoice datatable
+            if (dt_invoice_table.length) {
+                var dt_invoice = dt_invoice_table.DataTable({
+                    ajax: "{{ route('profile.membership-history') }}", // JSON file to add data
+                    columns: [{
+                            data: 'id'
+                        },
+                        {
+                            data: 'created_at'
+                        },
+                        {
+                            data: 'status'
+                        },
+                        {
+                            data: 'start_membership'
+                        },
+                        {
+                            data: 'end_membership'
+                        },
+                        {
+                            data: 'total'
+                        },
+                    ],
+                });
+            }
         });
     </script>
 @endpush

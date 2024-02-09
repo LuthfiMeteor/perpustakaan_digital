@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('membership', function (Blueprint $table) {
-            $table->bigInteger('membership_type')->after('harga');
+        Schema::table('transaksi', function (Blueprint $table) {
+            $table->bigInteger('membership_type')->after('order_number');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('membership', function (Blueprint $table) {
+        Schema::table('transaksi', function (Blueprint $table) {
             //
         });
     }

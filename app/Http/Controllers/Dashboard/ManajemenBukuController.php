@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\buku;
+use Exception;
 
 class ManajemenBukuController extends Controller
 {

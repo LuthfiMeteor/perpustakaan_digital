@@ -53,5 +53,8 @@ class User extends Authenticatable
     {
         return [ 'mail'];
     }
+    public function check_membership(){
+        return $this->hasOne(MembershipModel::class);
+    }
 }
 

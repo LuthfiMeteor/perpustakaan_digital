@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('membership', function (Blueprint $table) {
-            $table->bigInteger('membership_type')->after('harga');
+        Schema::create('non_aktif_otp', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('membership', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('non_aktif_otp');
     }
 };

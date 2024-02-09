@@ -22,7 +22,7 @@
         rel="stylesheet" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('asset-template/vendor/fonts/fontawesome.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset-template/vendor/fonts/tabler-icons.css') }}" />

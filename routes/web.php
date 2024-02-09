@@ -60,6 +60,10 @@ route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
         route::get('profile-membership',[ProfileController::class, 'memberhsipUser'])->name('profile.membership');
 
         route::post('profile-buy-membership', [ProfileController::class, 'buyMembership'])->name('profile.buymembership');
+        route::get('list-membership-history', [ProfileController::class, 'MembershipListHistory'])->name('profile.membership-history');
+
+        route::post('send-email-otp-deactive', [ProfileController::class, 'otpEmail'])->name('profile.email-otp'); 
+        route::post('deactive-account,process', [ProfileController::class,'deactiveProses'])->name('profile.deactive-account-process');
     });
 });
 
