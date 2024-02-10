@@ -1,4 +1,4 @@
-<?php
+j<?php
 
 namespace App\Http\Controllers\Auth;
 
@@ -66,6 +66,8 @@ class GoogleController extends Controller
                 Auth::login($authUser, true);
                 return redirect()->route('google.setup');
             }
+            Auth::login($authUser, true);
+            return redirect()->intended('/dashboard');
         }
     }
     private function getSocialAvatar($file, $path, $userId)
