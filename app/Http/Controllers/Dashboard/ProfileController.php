@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\MembershipModel;
 use App\Models\OtpEmailDeactiveModel;
+use App\Models\TransaksiModel;
 use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Promise\Create;
@@ -163,24 +164,18 @@ class ProfileController extends Controller
     }
     public function MembershipListHistory()
     {
-        $data = MembershipModel::with('transaksi')->where('user_id', Auth::id())->latest();
+        $data = TransaksiModel::where('user_id', Auth::id())->latest();
         // dd($data);
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('id', function ($data) {
-                return $data->id;
+                return $data->order_number;
             })
             ->addColumn('created_at', function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m-Y');
             })
             ->addColumn('status', function ($data) {
-                return $data->transaksi->status;
-            })
-            ->addColumn('start_membership', function ($data) {
-                return $data->mulai_membership;
-            })
-            ->addColumn('end_membership', function ($data) {
-                return $data->akhir_membership;
+                return $data->status;
             })
             ->addColumn('total', function ($data) {
                 return 'Rp.' . number_format($data->harga, 0, ',', '.');

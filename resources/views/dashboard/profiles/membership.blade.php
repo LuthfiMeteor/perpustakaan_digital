@@ -111,11 +111,9 @@
                 <table class="invoice-list-table table border-top">
                     <thead>
                         <tr>
-                            <th>#ID</th>
+                            <th>#Order_Number</th>
                             <th class="text-truncate">Issued Date</th>
                             <th>Invoice Status</th>
-                            <th>Start Membership</th>
-                            <th>End Membership</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -451,12 +449,6 @@
                         },
                         {
                             data: 'status'
-                        },
-                        {
-                            data: 'start_membership'
-                        },
-                        {
-                            data: 'end_membership'
                         },
                         {
                             data: 'total'

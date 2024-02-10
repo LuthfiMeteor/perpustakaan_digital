@@ -18,7 +18,6 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('app-logs-noval200512', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +45,7 @@ route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
     route::post('manajemen-buku-add', [ManajemenBukuController::class, 'store'])->name('bukuAdd');
     route::post('manajemen-buku-update', [ManajemenBukuController::class, 'update'])->name('bukuUpdate');
     Route::get('/manajemen-buku-edit/{id}', [ManajemenBukuController::class, 'edit'])->name('bukuEdit');
+
     // Google SetUp Password
     // 
     route::prefix('dashboard')->group(function() {
@@ -63,7 +63,7 @@ route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
         route::get('list-membership-history', [ProfileController::class, 'MembershipListHistory'])->name('profile.membership-history');
 
         route::post('send-email-otp-deactive', [ProfileController::class, 'otpEmail'])->name('profile.email-otp'); 
-        route::post('deactive-account,process', [ProfileController::class,'deactiveProses'])->name('profile.deactive-account-process');
+        route::post('deactive-account-process', [ProfileController::class,'deactiveProses'])->name('profile.deactive-account-process');
     });
 });
 
