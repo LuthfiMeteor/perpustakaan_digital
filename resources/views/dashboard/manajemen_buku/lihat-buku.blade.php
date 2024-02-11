@@ -34,7 +34,13 @@
                             </tr>
                             <tr>
                                 <td>
-                                    {{ $data->kategori }}
+                                    @foreach ($kategori as $index => $item)
+                                    {{ $item->nama }}
+                                    @if ($index < count($kategori) - 1)
+                                    ,  
+                                    @endif
+                                @endforeach
+                                
                                 </td>
                             </tr>
                             <tr>

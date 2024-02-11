@@ -44,7 +44,19 @@
                                     <label class="form-label" for="kategori">kategori
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" name="kategori" id="kategori" class="form-control" autocomplete="off" required value="{{ $data->kategori }}">
+                                    <select id="kategori" name="kategori[]" class="form-select"
+                                    multiple>
+                                    @php
+                                        $datak ??= [];
+                                    @endphp
+                                    @foreach ($kategori as $element)
+                                        <option value="{{ $element->id }}"
+                                            {{ (in_array($element->id, $datak) ?: []) ? 'selected' : '' }}>
+                                            {{ $element->nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <small class="text-muted">Biarkan kosong jika tidak ingin mengganti Kategori.</small>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <label class="form-label" for="buku">Upload Buku
@@ -87,33 +99,44 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
-<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
-<script>
-        $(document).ready(function () {
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                $('#btnSubmitAdd').click(function (e) {
-                    e.preventDefault();
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 
-                    // Get the CKEditor instance
-                    var editorData = editor.getData();
+    <script>
 
-                    // Set the content of CKEditor as the value of the textarea
-                    $('#deskripsi').val(editorData);
-
-                    // Submit the form
-                    $('#formAdd').submit();
-                });
-            })
-            .catch(error => {
-                console.error(error);
+            $('#kategori').select2({
+                    multiple: true,
+                    width: '100%',
+                    placeholder: 'Pilih kategori',
             });
-    })
-</script>
+
+
+            $(document).ready(function () {
+            ClassicEditor
+                .create(document.querySelector('#editor'))
+                .then(editor => {
+                    $('#btnSubmitAdd').click(function (e) {
+                        e.preventDefault();
+
+                        // Get the CKEditor instance
+                        var editorData = editor.getData();
+
+                        // Set the content of CKEditor as the value of the textarea
+                        $('#deskripsi').val(editorData);
+
+                        // Submit the form
+                        $('#formAdd').submit();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        })
+    </script>
 @endsection

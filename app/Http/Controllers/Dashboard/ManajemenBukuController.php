@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\kategori;
 use App\Models\buku;
 
 class ManajemenBukuController extends Controller
 {
     public function index(){
-        return view('dashboard.manajemen_buku.manajemenBuku');
+        $kategori = kategori::all();
+        return view('dashboard.manajemen_buku.manajemenBuku', compact('kategori'));
     }
 
     public function store(Request $request)
@@ -40,7 +42,8 @@ class ManajemenBukuController extends Controller
                 $buku->judul_buku = $request->judul;
                 $buku->deskripsi = $request->deskripsi;
                 $buku->penulis = $request->penulis;
-                $buku->kategori = $request->kategori;
+                $buku->kategori = json_encode($request->kategori);
+                $kategori = json_decode($buku->kategori);
 
                 // Handle file uploads for 'buku'
                 if ($request->hasFile('buku')) {
@@ -69,17 +72,24 @@ class ManajemenBukuController extends Controller
         }
     }
 
-    public function lihat ($id) 
+    public function lihat($id) 
     {
-
-        $data = buku::where('id', '=', $id)->first();
-        return view("dashboard.manajemen_buku.lihat-buku", compact('data'));
+        $data = Buku::findOrFail($id);
+        $kategori = Kategori::whereIn('id', json_decode($data->kategori))->get();
+    
+        return view("dashboard.manajemen_buku.lihat-buku", compact('data', 'kategori'));
     }
 
-    public function edit ($id) 
+    public function edit($id) 
     {
-        $data = buku::where('id', '=', $id)->first();
-        return view("dashboard.manajemen_buku.edit-buku", compact('data'));
+        $data = Buku::findOrFail($id);
+    
+        // Mengambil semua kategori
+        $kategori = Kategori::all();
+
+    
+        // Meneruskan data ke view
+        return view("dashboard.manajemen_buku.edit-buku", compact('data', 'kategori'));
     }
 
     public function update (Request $request)
@@ -90,7 +100,6 @@ class ManajemenBukuController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'penulis' => 'required',
-            'kategori' => 'required',
         ]);
 
     if ($validator->fails()) {
@@ -105,7 +114,11 @@ class ManajemenBukuController extends Controller
 
         $data->judul_buku = $request->judul;
         $data->penulis = $request->penulis;
-        $data->kategori = $request->kategori;
+
+        if ($request->kategori != null) {
+            $data->kategori = json_encode($request->kategori);
+            $kategori = json_decode($data->kategori);
+        }
 
         if ($request->deskripsi != null) {
             $data->deskripsi = $request->deskripsi;
@@ -181,7 +194,9 @@ class ManajemenBukuController extends Controller
 
     public function json()
     {
-        $data = buku::all();
+        $data = Buku::with('kategori')->get();
+
+    
 
         return DataTables::of($data)
         ->addIndexColumn()
@@ -195,7 +210,26 @@ class ManajemenBukuController extends Controller
             return '<span class="ms-3 badge bg-label-primary">' . $data->penulis . '</span>';
         })
         ->addColumn('kategori', function ($data) {
-            return '<span class="ms-3 badge bg-label-warning">' . $data->kategori . '</span>';
+            $kategoriString = $data->kategori;
+            $kategoriArray = json_decode($kategoriString, true);
+            if ($kategoriArray !== null) {
+                $namaKategoris = [];
+        
+                foreach ($kategoriArray as $kategoriId) {
+                    $kategori = Kategori::find($kategoriId);
+                    if ($kategori) {
+                        $namaKategori[] = $kategori->nama;
+                    } else {
+                        $namaKategori[] = '-';
+                    }
+                }
+        
+                // Menggabungkan semua nama kategori menjadi satu string dengan koma
+                return '<span class="ms-3 badge bg-label-warning">' .implode(", ", $namaKategori) . '</span>';
+            } else {
+                return '-';
+            }
+            // return '<span class="ms-3 badge bg-label-warning">' . $data->kategori->nama . '</span>';
         })
         ->addColumn('edit', function ($data) {
             return '<button type="button" class="btn btn-xs btn-info btn-edit" data-id="' . $data->id . '" >

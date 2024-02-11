@@ -52,6 +52,24 @@
                 <span class="menu-title">Manajemen Buku</span>
             </a>
         </li>
+
+        <li class="menu-item">
+            <a class="menu-link {{ Request::route()->getName() == 'kategori' ? 'active' : '' }}" href="{{ route('kategori') }}" style="{{ Request::route()->getName() == 'kategori' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                <span class="menu-bullet">
+                    <span class="menu-icon tf-icons ti ti-pencil"></span>
+                </span>
+                <span class="menu-title">Kategori Buku</span>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a class="menu-link {{ Request::route()->getName() == 'manajemenUser' ? 'active' : '' }}" href="{{ route('manajemenUser') }}" style="{{ Request::route()->getName() == 'manajemenUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                <span class="menu-bullet">
+                    <span class="menu-icon tf-icons ti ti-user"></span>
+                </span>
+                <span class="menu-title">Manajemen User</span>
+            </a>
+        </li>
         
     </ul>
 </aside>
