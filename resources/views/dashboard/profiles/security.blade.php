@@ -78,7 +78,7 @@
                 <!--/ Change Password -->
 
                 <!-- Recent Devices -->
-                <div class="card mb-4">
+                {{-- <div class="card mb-4">
                     <h5 class="card-header">Login History</h5>
                     <div class="table-responsive">
                         <table class="table">
@@ -110,9 +110,66 @@
                             </tbody>
                         </table>
                     </div>
+                </div> --}}
+                <div class="card">
+                    <!-- Billing History -->
+                    <h5 class="card-header">Billing History</h5>
+                    <div class="card-datatable table-responsive">
+                        <table class="invoice-list-table table border-top">
+                            <thead>
+                                <tr>
+                                    {{-- <th scope="col">#</th> --}}
+                                    <th scope="col">IP Address</th>
+                                    <th scope="col">Device</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Login at</th>
+                                    <th scope="col">Login Successfully</th>
+                                    <th scope="col">Logout at</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!--/ Billing History -->
                 </div>
                 <!--/ Recent Devices -->
             </div>
         </div>
     </div>
 @endsection
+@push('script')
+    <script src="{{ asset('asset-template/vendor/libs/jquery/jquery.js') }}"></script>
+
+    <script>
+        $(function() {
+            // Variable declaration for table
+            var dt_invoice_table = $('.invoice-list-table');
+
+            // Invoice datatable
+            if (dt_invoice_table.length) {
+                var dt_invoice = dt_invoice_table.DataTable({
+                    ajax: "{{ route('profile.login-history-datatable') }}", // JSON file to add data
+                    columns: [
+                        // {
+                        //     data: 'id'
+                        // },
+                        {
+                            data: 'ip_Address'
+                        },
+                        {
+                            data: 'device'
+                        },
+                        {
+                            data: 'location'
+                        }, {
+                            data: 'login_at'
+                        }, {
+                            data: 'login_success'
+                        }, {
+                            data: 'logout_at'
+                        }
+                    ],
+                });
+            }
+        });
+    </script>
+@endpush

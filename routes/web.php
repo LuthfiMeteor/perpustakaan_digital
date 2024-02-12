@@ -54,6 +54,7 @@ route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
 
         route::get('profile-security', [ProfileController::class, 'profileSecurity'])->name('profile.security');
         route::post('update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+        route::get('get-login-history',  [ProfileController::class, 'LoginHistoryDatatable'])->name('profile.login-history-datatable');
 
         route::get('profile-connections', [ProfileController::class, 'profileConnections'])->name('profile.connections');
 

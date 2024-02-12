@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use NumberFormatter;
+use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProfileController extends Controller
@@ -52,8 +53,7 @@ class ProfileController extends Controller
     }
     public function profileSecurity()
     {
-        $logs = auth()->user()->authentications;
-        return view('dashboard.profiles.security', compact('logs'));
+        return view('dashboard.profiles.security');
     }
     public function updatePassword(Request $request)
     {
@@ -78,6 +78,34 @@ class ProfileController extends Controller
         $user->update();
         Auth::logout();
         return redirect()->route('login')->with('success', 'Password updated successfully');
+    }
+    public function LoginHistoryDatatable(){
+        $data = auth()->user()->authentications;
+        return DataTables::of($data)
+            ->addIndexColumn()
+            // ->addColumn('id', function ($data) {
+            //     return $data->id;
+            // })
+            ->addColumn('ip_Address', function ($data) {
+                return $data['ip_address'];
+            })
+            ->addColumn('device', function ($data) {
+                return $data['user_agent'];
+            })
+            ->addColumn('login_at',  function($data){
+                return Carbon::parse($data['login_at'])->isoFormat('D MMMM YYYY h:mm A');
+            })
+            ->addColumn('location', function($data){
+                return $data->location ? $data->location['city'] : '-';
+            })
+            ->addColumn('login_success', function($data){
+                return $data['login_successful'] ? 'Yes' : 'No';
+            })
+            ->addColumn('logout_at', function($data){
+                return $data['logout_at'] ? Carbon::parse($data->logout_at)->isoFormat('D MMMM YYYY h:mm A') : '-';
+            })
+            // ->rawColumns(['order_number'])
+            ->toJson();
     }
     public function profileConnections()
     {
