@@ -172,6 +172,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -189,6 +190,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ])->toArray(),
 
 ];

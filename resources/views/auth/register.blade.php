@@ -220,7 +220,16 @@
                                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                             </div>
                         </div>
-
+                        <div class="mb-3">
+                            <label class="form-label">Captha</label>
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+                            @error('g-recaptcha-response')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="terms-conditions"
