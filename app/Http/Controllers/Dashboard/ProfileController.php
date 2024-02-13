@@ -107,6 +107,10 @@ class ProfileController extends Controller
             // ->rawColumns(['order_number'])
             ->toJson();
     }
+    public function deleteHistoryLogin(){
+        $data = DB::table('authentication_log')->where('authenticatable_id', Auth::id())->delete();
+        return response(200);
+    }
     public function profileConnections()
     {
         return view('dashboard.profiles.connecttions');
