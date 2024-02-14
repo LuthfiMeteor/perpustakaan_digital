@@ -300,10 +300,22 @@
                 <!-- / Style Switcher-->
 
                 <!-- navbar button: Start -->
-                <li>
-                    <a href="{{ route('login') }}" class="btn btn-primary"><span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span
-                            class="d-none d-md-block">Login/Register</span></a>
-                </li>
+                @auth
+
+                @endauth
+                @auth
+                    <li>
+                        <a href="{{ route('dashboard') }}" class="btn btn-primary"><span
+                                class="tf-icons ti ti-home scaleX-n1-rtl me-md-1"></span><span
+                                class="d-none d-md-block">Dashboard</span></a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('login') }}" class="btn btn-primary"><span
+                                class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span
+                                class="d-none d-md-block">Login/Register</span></a>
+                    </li>
+                @endauth
                 <!-- navbar button: End -->
             </ul>
             <!-- Toolbar: End -->
