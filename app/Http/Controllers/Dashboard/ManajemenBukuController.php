@@ -15,7 +15,7 @@ use Exception;
 class ManajemenBukuController extends Controller
 {
     public function index(){
-        return view('dashboard.manajemen_buku.manajemenBuku');
+        return view('dashboard.manajemen_buku.ManajemenBuku');
     }
 
     public function store(Request $request)
