@@ -1,0 +1,83 @@
+.bg-home{
+    background-color: #fafafa;
+    border-radius: 0 0 3.5rem 3.5rem;
+    padding-top: 10.2rem;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Josefin+Sans:wght@300&family=Rubik:wght@500&display=swap');
+section{
+    font-family: 'Rubik', sans-serif;
+}
+.card{
+    min-width: 15vw;
+}
+
+.first-title{
+    color:#6B4336;
+}
+.book-cover{
+    object-fit: cover;
+    border-top-left-radius: 10px ;
+    border-top-right-radius: 10px ;
+}
+.book-category{
+    margin-top: -15px;
+}
+
+.ti-star-filled{
+    color: rgb(186, 186, 72);
+    width: 5px;
+    margin-right: 10px;
+}
+
+.list-book{
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 2rem;
+}
+
+.scroll-arrow i {
+    font-size: 20px;
+    color: #000;
+}
+
+.scroll-arrow.left {
+    left: 5px;
+}
+
+.scroll-arrow.right {
+    right: 5px;
+}
+
+.fa-book{
+    font-size: 40px;
+    color:#ffff;
+}
+
+.bg-feature{
+    background-color: #6B4336;
+}
+
+.feature-desc{
+    color:#ffffff;
+}
+
+.title-faq{
+    color: #6B4336;
+}
+
+.accordion-button{
+    background-color: #6B4336 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+.accordion-button::after {
+    background-color: #fff;
+    padding: 10;
+    border-radius: 20px;
+    font-weight: 900;
+}
+
+.bg-contact{
+    background-color: #fafafa;
+}
