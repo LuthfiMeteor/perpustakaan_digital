@@ -26,8 +26,51 @@ class ManajemenUserController extends Controller
     {
 
         $data = user::where('id', '=', $id)->first();
-        return view("dashboard.edit.edit-user", compact('data'));
+        return view("dashboard.manajemen_user.edit", compact('data'));
     }
+
+    public function update (Request $request)
+    {
+
+        // dd($request->all());
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            alert::warning('Pastikan data sesuai');
+            return redirect()->back();
+        }
+        
+        DB::beginTransaction();
+        try {
+            $data = user::where('id', '=', $request->id)
+            ->first();
+
+            $data->name = $request->name;
+            $data->email = $request->email;
+
+            if ($request->password) {
+                $data->password = Hash::make($request->password);
+            }
+
+            
+            $data->save();
+
+        
+            DB::commit();
+            Alert::success('Sukses Edit Data');
+            return redirect()->back();
+        } catch (Exception $th) {
+            //throw $th;
+
+            DB::rollback();
+            return redirect()->back()->with('error', 'Data  Gagal Di update');
+        }
+    }
+
 
 
     public function hapus ($id)
@@ -68,7 +111,11 @@ class ManajemenUserController extends Controller
         ->addColumn('edit', function ($data) {
             return '
             <button type="button" class="btn btn-sm btn-danger btn-hapus" data-id="' . $data->id . '" >
-            <span class="menu-icon tf-icons ti ti-trash"></span
+            <span class="menu-icon tf-icons ti ti-trash"></span>
+            </button>
+
+            <button type="button" class="btn btn-sm btn-info btn-edit" data-id="' . $data->id . '" >
+            <span class="menu-icon tf-icons ti ti-pencil"></span>
             </button>';
         })
         ->rawColumns(['name','email','edit'])

@@ -49,7 +49,7 @@
     </div>
 </div>
 
-<div id="responseLihat"></div>
+<div id="responseEdit"></div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -89,6 +89,22 @@
                 "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
                 ">",
         });
+    });
+
+    $(document).on('click', '.btn-edit', function () {
+            var btnId = $(this).data('id');
+        
+            $.ajax({
+                type: "GET",
+                url: "{{ route('userEdit', '') }}" + "/" + btnId,
+                success: function (response) {
+                    console.log(response);
+                    console.log(btnId);
+                    
+                    $('#responseEdit').html(response);
+                    $('#modalEdit').modal('show');
+                }
+            });
     });
 
     $(document).on('click', '.btn-hapus', function () {

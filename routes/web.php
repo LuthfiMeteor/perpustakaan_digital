@@ -55,6 +55,8 @@ route::group(['middleware' => 'auth'], function() {
     route::get('manajemen-user', [ManajemenUserController::class, 'index'])->name('manajemenUser');
     route::get('user-json', [ManajemenUserController::class, 'json'])->name('userJson');
     route::get('manajemen-user-hapus/{id}', [ManajemenUserController::class, 'hapus'])->name('userHapus');
+    route::get('manajemen-user-edit/{id}', [ManajemenUserController::class, 'edit'])->name('userEdit');
+    route::post('manajemen-user-update', [ManajemenUserController::class, 'update'])->name('userUpdate');
 
     route::prefix('dashboard')->group(function() {
         route::get('profile', [ProfileController::class, 'profile'])->name('profile');
