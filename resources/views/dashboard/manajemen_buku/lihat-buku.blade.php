@@ -44,7 +44,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td class="text-break">
                                     {!! $data->deskripsi !!}
                                 </td>
                             </tr>

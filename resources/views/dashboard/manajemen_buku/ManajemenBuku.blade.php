@@ -17,6 +17,7 @@
         </div>
         <hr>
         <div class="row">
+            @include('sweetalert::alert')
             <div class="col-lg-12 py-2 md-2 mb-3">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">

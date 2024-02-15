@@ -28,6 +28,6 @@ class CheckNonactiveAccount implements Rule
     public function message()
     {
         // Define the error message returned when validation fails
-        return 'Account Has Deactive. Please Contact Support Team.';
+        return 'Account Has . PlDeactiveease Contact Support Team.';
     }
 }

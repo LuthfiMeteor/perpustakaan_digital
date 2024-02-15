@@ -53,5 +53,41 @@
                 <div data-i18n="Book Management">Book Management</div>
             </a>
         </li>
-    </ul>
+        <li class="menu-item">
+            <a href="{{ route('kategori') }}"
+                class="menu-link {{ Request::route()->getName() == 'kategori' ? 'active' : '' }}"
+                style="{{ Request::route()->getName() == 'kategori' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                <i class="menu-icon tf-icons ti ti-pencil"></i>
+                <div data-i18n="kategori">Kategori</div>
+            </a>
+        </li>
+        <li class="menu-item
+            {{ Request::route()->getName() == 'manajemenNoUser' ? 'active open' : '' }}
+            {{ Request::route()->getName() == 'manajemenUser' ? 'active open' : '' }}"
+            >
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-user"></i>
+                <div data-i18n="Academy">Manajemen User</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{ route('manajemenUser') }}"
+                        class="menu-link {{ Request::route()->getName() == 'manajemenUser' ? 'active' : '' }}"
+                        style="{{ Request::route()->getName() == 'manajemenUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                        <i class="menu-icon tf-icons ti ti-user"></i>
+                        <div data-i18n="manajemenUser">User Active</div>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{ route('manajemenNoUser') }}"
+                        class="menu-link {{ Request::route()->getName() == 'manajemenNoUser' ? 'active' : '' }}"
+                        style="{{ Request::route()->getName() == 'manajemenNoUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                        <i class="menu-icon tf-icons ti ti-user"></i>
+                        <div data-i18n="manajemenNoUser">User Non Active</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
 </aside>

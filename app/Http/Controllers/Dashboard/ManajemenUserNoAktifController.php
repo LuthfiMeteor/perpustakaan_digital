@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\UserNoAktif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,11 +14,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class ManajemenUserController extends Controller
+class ManajemenUserNoAktifController extends Controller
 {
     public function index()
     {
-        return view('dashboard.manajemen_user.index');
+        return view('dashboard.manajemen_user_no_aktif.index');
     }
 
 
@@ -78,7 +78,7 @@ class ManajemenUserController extends Controller
 
         try {
 
-            $data = user::where('id', '=', $id)->first();
+            $data = UserNoAktif::where('id', '=', $id)->first();
             $data->delete();
 
             DB::commit();
@@ -96,7 +96,7 @@ class ManajemenUserController extends Controller
 
     public function json()
     {
-        $data = user::all();
+        $data = UserNoAktif::all();
 
         return DataTables::of($data)
         ->addIndexColumn()
@@ -112,10 +112,6 @@ class ManajemenUserController extends Controller
             return '
             <button type="button" class="btn btn-sm btn-danger btn-hapus" data-id="' . $data->id . '" >
             <span class="menu-icon tf-icons ti ti-reload"></span>
-            </button>
-
-            <button type="button" class="btn btn-sm btn-info btn-edit" data-id="' . $data->id . '" >
-            <span class="menu-icon tf-icons ti ti-pencil"></span>
             </button>';
         })
         ->rawColumns(['name','email','edit'])

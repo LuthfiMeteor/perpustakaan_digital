@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ManajemenBukuController;
 use App\Http\Controllers\Dashboard\KategoriController;
 use App\Http\Controllers\Dashboard\ManajemenUserController;
+use App\Http\Controllers\Dashboard\ManajemenUserNoAktifController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,10 @@ route::group(['middleware' => 'auth'], function() {
     route::get('manajemen-user-hapus/{id}', [ManajemenUserController::class, 'hapus'])->name('userHapus');
     route::get('manajemen-user-edit/{id}', [ManajemenUserController::class, 'edit'])->name('userEdit');
     route::post('manajemen-user-update', [ManajemenUserController::class, 'update'])->name('userUpdate');
+
+    route::get('manajemen-no-user', [ManajemenUserNoAktifController::class, 'index'])->name('manajemenNoUser');
+    route::get('no-user-json', [ManajemenUserNoAktifController::class, 'json'])->name('userNoJson');
+    route::get('manajemen-no-user-hapus/{id}', [ManajemenUserNoAktifController::class, 'hapus'])->name('userNoHapus');
 
     route::prefix('dashboard')->group(function() {
         route::get('profile', [ProfileController::class, 'profile'])->name('profile');
