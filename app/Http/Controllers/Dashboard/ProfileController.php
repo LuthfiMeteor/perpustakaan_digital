@@ -79,7 +79,8 @@ class ProfileController extends Controller
         Auth::logout();
         return redirect()->route('login')->with('success', 'Password updated successfully');
     }
-    public function LoginHistoryDatatable(){
+    public function LoginHistoryDatatable()
+    {
         $data = auth()->user()->authentications;
         return DataTables::of($data)
             ->addIndexColumn()
@@ -92,22 +93,23 @@ class ProfileController extends Controller
             ->addColumn('device', function ($data) {
                 return $data['user_agent'];
             })
-            ->addColumn('login_at',  function($data){
+            ->addColumn('login_at', function ($data) {
                 return Carbon::parse($data['login_at'])->isoFormat('D MMMM YYYY h:mm A');
             })
-            ->addColumn('location', function($data){
+            ->addColumn('location', function ($data) {
                 return $data->location ? $data->location['city'] : '-';
             })
-            ->addColumn('login_success', function($data){
+            ->addColumn('login_success', function ($data) {
                 return $data['login_successful'] ? 'Yes' : 'No';
             })
-            ->addColumn('logout_at', function($data){
+            ->addColumn('logout_at', function ($data) {
                 return $data['logout_at'] ? Carbon::parse($data->logout_at)->isoFormat('D MMMM YYYY h:mm A') : '-';
             })
             // ->rawColumns(['order_number'])
             ->toJson();
     }
-    public function deleteHistoryLogin(){
+    public function deleteHistoryLogin()
+    {
         $data = DB::table('authentication_log')->where('authenticatable_id', Auth::id())->delete();
         return response(200);
     }
@@ -174,10 +176,16 @@ class ProfileController extends Controller
                     ->first();
                 if ($transaksi->membership_type == '1') {
                     $intervalTime = $currentDate->copy()->addMonths(1);
+                    $desc_plan = '1 Month Membership';
+                    $billing_cycle = 'Monthly';
                 } elseif ($transaksi->membership_type == '2') {
                     $intervalTime = $currentDate->copy()->addMonths(3);
+                    $desc_plan = '3 Month Membership';
+                    $billing_cycle = 'Quarterly';
                 } elseif ($transaksi->membership_type == '3') {
                     $intervalTime = $currentDate->copy()->addYear();
+                    $desc_plan = '1 Year Membership';
+                    $billing_cycle = 'Annually';
                 }
                 $store_membership = DB::table('membership')->insert([
                     'user_id' => $transaksi->user_id,
@@ -188,9 +196,17 @@ class ProfileController extends Controller
                     'akhir_membership' => $intervalTime,
                     'created_at' => now(),
                 ]);
-                $transaksi = DB::table('transaksi')
+                $transaksi_update = DB::table('transaksi')
                     ->where('order_number', $request->order_id)
                     ->update(['status' => 'sukses']);
+                $user = User::find($transaksi->user_id);
+                $prefix = 'REF#';
+                $uniqueIdentifier = date('YmdHis');
+                $reference = $prefix . $uniqueIdentifier;
+                Mail::send('dashboard.profiles.membership-success-transaction', ['name'=>$user->name,'email' => $user->email, 'plan' => $desc_plan, 'price'=> $transaksi->harga,'billing_cycle'=>$billing_cycle, 'ref' => $reference], function ($m) use ($user) {
+                    $m->from('info@perpustakaan.com', 'Perpustakaan Nekat');
+                    $m->to($user->email, 'Support')->subject('Welcome To Membership!');
+                });
             }
         }
     }
@@ -254,12 +270,14 @@ class ProfileController extends Controller
 
         $verificationResult = Hash::check($otpString, $token->token);
         // dd($verificationResult);
-        if($verificationResult){
-            $otp = DB::table('non_aktif_otp')->where('email', Auth::user()->email)->delete();
+        if ($verificationResult) {
+            $otp = DB::table('non_aktif_otp')
+                ->where('email', Auth::user()->email)
+                ->delete();
             $user = DB::table('users')->where('id', Auth::id())->delete();
             // Auth::logout();
             return response()->json(['success' => true, 'message' => 'OTP verification successful']);
-        }else{
+        } else {
             return response()->json(['success' => false, 'message' => 'OTP verification failed']);
         }
     }

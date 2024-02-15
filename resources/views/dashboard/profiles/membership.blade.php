@@ -83,7 +83,7 @@
                             <ul class="ps-3 g-2 my-3">
                                 {{-- <li class="mb-2">10 Users</li> --}}
                                 {{-- <li class="mb-2"></li> --}}
-                                <li>Baca Buku Standard</li>
+                                <li>Read Standard Book</li>
                             </ul>
                             {{-- <div class="d-flex justify-content-between align-items-center mb-1 fw-medium text-heading">
                                 <span>Days</span>
