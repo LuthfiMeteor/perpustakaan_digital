@@ -21,7 +21,6 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,10 +32,11 @@ route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 Route::get('connect/google', [GoogleController::class, 'connectGoogle'])->name('connect.google');
 
 route::group(['middleware'=>'auth'], function(){
-    route::get('google-password-step', [GoogleController::class, 'googlePasswordSet'])->name('google.setup');
+    route::get('google-password-step', [GoogleController::class, 'googlePasswordSet'])->name('google.setup')->middleware('GoogleSetUpSuccess');
+    route::post('goole-password-setup', [GoogleController::class, 'setPasswordStore'])->name('google.setup-store');
 });
 
-route::group(['middleware' => 'auth'], function() {
+route::group(['middleware' => ['auth', 'GoogleSetUp']], function() {
     route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     Route::middleware(['auth', 'role:admin'])->group(function () { 
