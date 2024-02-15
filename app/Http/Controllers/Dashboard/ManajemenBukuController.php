@@ -16,7 +16,8 @@ use Exception;
 class ManajemenBukuController extends Controller
 {
     public function index(){
-        return view('dashboard.manajemen_buku.ManajemenBuku');
+        $kategori = Kategori::all();
+        return view('dashboard.manajemen_buku.ManajemenBuku',compact('kategori'));
     }
 
     public function store(Request $request)

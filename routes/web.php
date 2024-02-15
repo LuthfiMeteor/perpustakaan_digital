@@ -65,8 +65,18 @@ route::group(['middleware' => 'auth'], function() {
 
         route::get('profile-security', [ProfileController::class, 'profileSecurity'])->name('profile.security');
         route::post('update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+        route::get('get-login-history',  [ProfileController::class, 'LoginHistoryDatatable'])->name('profile.login-history-datatable');
+        route::post('delete-history-login', [ProfileController::class, 'deleteHistoryLogin'])->name('profile.deleteHistoryLogin');
 
         route::get('profile-connections', [ProfileController::class, 'profileConnections'])->name('profile.connections');
+
+        route::get('profile-membership',[ProfileController::class, 'memberhsipUser'])->name('profile.membership');
+
+        route::post('profile-buy-membership', [ProfileController::class, 'buyMembership'])->name('profile.buymembership');
+        route::get('list-membership-history', [ProfileController::class, 'MembershipListHistory'])->name('profile.membership-history');
+
+        route::post('send-email-otp-deactive', [ProfileController::class, 'otpEmail'])->name('profile.email-otp'); 
+        route::post('deactive-account-process', [ProfileController::class,'deactiveProses'])->name('profile.deactive-account-process');
     });
 });
 
