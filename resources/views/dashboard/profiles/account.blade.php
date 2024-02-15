@@ -33,7 +33,7 @@
                                         <span class="d-none d-sm-block">Reset</span>
                                     </button>
 
-                                    <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</div>
+                                    <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 2MB (1 : 1)</div>
                                 </div>
                             </div>
                         </div>
@@ -521,7 +521,7 @@
                         $('input[type="number"]').each(function() {
                             $(this).addClass('form-control is-invalid');
                         });
-                    }else{
+                    } else {
                         window.location.href = '{{ route('login') }}'
                     }
                 },
