@@ -14,6 +14,8 @@ return new class extends Migration
     {
             DB::unprepared('CREATE TRIGGER ins_user_to_log BEFORE DELETE ON `users` FOR EACH ROW BEGIN INSERT INTO log_users_non_aktif (`name`, `email`, `google_id`,`email_verified_at`, `address`, `phone`,  `avatar`, `password`)
                 VALUES (old.name,old.email,old.google_id,old.email_verified_at,old.address,old.phone,old.avatar,old.password);
+
+                DELETE FROM model_has_roles WHERE model_id = old.id;
                 END
         ');
     }

@@ -423,9 +423,6 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
                         <button class="dropdown-item" onclick="logout()">
                             <i class="ti ti-logout me-2 ti-sm"></i>
                             <span class="align-middle">Log Out</span>

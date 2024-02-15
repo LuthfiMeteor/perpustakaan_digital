@@ -26,20 +26,19 @@
 
     <div class="menu-inner-shadow"></div>
     <br>
-
     <ul class="menu-inner py-1">
-
+        <!-- Apps & Pages -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Dashboard</span>
+        </li>
         <li class="menu-item">
-            <a class="menu-link {{ Request::route()->getName() == 'dashboard' ? 'active' : '' }}"
-                href="{{ route('dashboard') }}"
+            <a href="{{ route('dashboard') }}"
+                class="menu-link {{ Request::route()->getName() == 'dashboard' ? 'active' : '' }}"
                 style="{{ Request::route()->getName() == 'dashboard' ? 'background-color: #4A2D14; color: white;' : '' }}">
-                <span class="menu-bullet">
-                    <span class="menu-icon tf-icons ti ti-home"></span>
-                </span>
-                <span class="menu-title">Dashboard</span>
+                <i class="menu-icon tf-icons ti ti-mail"></i>
+                <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-
         <li class="menu-item">
             <a class="menu-link
             {{ Request::route()->getName() == 'manajemenBuku' ? 'active' : '' }}
@@ -50,30 +49,9 @@
             {{ Request::route()->getName() == 'manajemenBuku' ? 'background-color: #4A2D14; color: white;' : '' }}
             {{ Request::route()->getName() == 'bukuEdit' ? 'background-color: #4A2D14; color: white;' : '' }}
             ">
-                <span class="menu-bullet">
-                    <span class="menu-icon tf-icons ti ti-book"></span>
-                </span>
-                <span class="menu-title">Manajemen Buku</span>
+                <i class="menu-icon tf-icons  ti ti-book"></i>
+                <div data-i18n="Book Management">Book Management</div>
             </a>
         </li>
-
-        <li class="menu-item">
-            <a class="menu-link {{ Request::route()->getName() == 'kategori' ? 'active' : '' }}" href="{{ route('kategori') }}" style="{{ Request::route()->getName() == 'kategori' ? 'background-color: #4A2D14; color: white;' : '' }}">
-                <span class="menu-bullet">
-                    <span class="menu-icon tf-icons ti ti-pencil"></span>
-                </span>
-                <span class="menu-title">Kategori Buku</span>
-            </a>
-        </li>
-
-        <li class="menu-item">
-            <a class="menu-link {{ Request::route()->getName() == 'manajemenUser' ? 'active' : '' }}" href="{{ route('manajemenUser') }}" style="{{ Request::route()->getName() == 'manajemenUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
-                <span class="menu-bullet">
-                    <span class="menu-icon tf-icons ti ti-user"></span>
-                </span>
-                <span class="menu-title">Manajemen User</span>
-            </a>
-        </li>
-        
     </ul>
 </aside>
