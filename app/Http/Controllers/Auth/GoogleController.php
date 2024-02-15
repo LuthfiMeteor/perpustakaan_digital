@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeactiveAccountModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\Routing\Route;
@@ -46,8 +48,14 @@ class GoogleController extends Controller
                     ->route('login')
                     ->withErrors(['google' => 'This email is already registered with password sign-in. Please sign in using your password.']);
             }
-            $AvatarNama = $this->getSocialAvatar($user->avatar, 'public/profiles/', $user->id);
+            $AvatarNama = $this->getSocialAvatar($user->avatar, 'profiles/', $user->id);
             if (!$authUser) {
+                $deactiveAccount = DeactiveAccountModel::where('email', $user->email)->count();
+                if ($deactiveAccount > 0) {
+                    return redirect()
+                    ->route('login')
+                    ->withErrors(['google' => 'Account Has Deactive. Please Contact Support Team.']);
+                }
                 $authUser = User::create([
                     'google_id' => $user->id,
                     'name' => $user->name,
@@ -58,6 +66,8 @@ class GoogleController extends Controller
                 Auth::login($authUser, true);
                 return redirect()->route('google.setup');
             }
+            Auth::login($authUser, true);
+            return redirect()->intended('/dashboard');
         }
     }
     private function getSocialAvatar($file, $path, $userId)
@@ -75,4 +85,20 @@ class GoogleController extends Controller
     public function googlePasswordSet(){
         return view('auth.google-setup');
     }
+    public function setPasswordStore(Request $request)
+{
+    // dd($request->all());
+    $request->validate([
+        'password' => 'required|min:8',
+        'password_confirmation' => 'required|same:password',
+    ],[
+        'confirmPassword.same'=>'Confirm Password Not Same with new password',
+    ]);
+
+    $user = User::find(Auth::id());
+    $user->password = Hash::make($request->password);
+    $user->save(); // Use save() instead of update()
+
+    return redirect(route('dashboard'));
+}
 }

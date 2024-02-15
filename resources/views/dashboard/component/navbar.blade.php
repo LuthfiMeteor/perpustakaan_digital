@@ -383,7 +383,7 @@
                                     <div class="avatar avatar-online">
                                         @if (Auth::user()->avatar)
                                             <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" alt
-                                                class="h-100 rounded-circle" style="object-fit: contain"/>
+                                                class="h-100 rounded-circle" style="object-fit: contain" />
                                         @else
                                             <img src="{{ asset('asset-template/img/avatars/1.png') }}" alt
                                                 class="h-100 rounded-circle" />
@@ -392,7 +392,13 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <span class="fw-medium d-block">{{ Auth::user()->name }}</span>
-                                    <small class="text-muted">-</small>
+                                    <small class="text-muted">
+                                        @if (Auth::user()->check_membership)
+                                            <span class="badge bg-warning">Premium</span>
+                                        @else
+                                            <span class="badge bg-secondary">Standard</span>
+                                        @endif
+                                    </small>
                                 </div>
                             </div>
                         </a>
@@ -407,35 +413,14 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="pages-account-settings-account.html">
-                            <i class="ti ti-settings me-2 ti-sm"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="pages-account-settings-billing.html">
+                        <a class="dropdown-item" href="{{ route('profile.membership') }}">
                             <span class="d-flex align-items-center align-middle">
                                 <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
-                                <span class="flex-grow-1 align-middle">Billing</span>
-                                <span
-                                    class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20">2</span>
-                            </span>
+                                <span class="flex-grow-1 align-middle">My Membership</span>
                         </a>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="pages-faq.html">
-                            <i class="ti ti-help me-2 ti-sm"></i>
-                            <span class="align-middle">FAQ</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="pages-pricing.html">
-                            <i class="ti ti-currency-dollar me-2 ti-sm"></i>
-                            <span class="align-middle">Pricing</span>
-                        </a>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>

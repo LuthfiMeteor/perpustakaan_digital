@@ -88,7 +88,7 @@
     <title>Pramuka</title>
 
     <meta name="description" content="" />
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <link rel="icon" type="image/x-icon" href="{{ asset('asset-template/img/favicon/favicon.ico') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -220,7 +220,16 @@
                                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                             </div>
                         </div>
-
+                        <div class="mb-3">
+                            <label class="form-label">Captha</label>
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+                            @error('g-recaptcha-response')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="terms-conditions"
@@ -247,7 +256,7 @@
 
                     <div class="d-flex justify-content-center">
 
-                        <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+                        <a href="{{ route('google.login') }}" class="btn btn-icon btn-label-google-plus me-3">
                             <i class="tf-icons fa-brands fa-google fs-5"></i>
                         </a>
                     </div>

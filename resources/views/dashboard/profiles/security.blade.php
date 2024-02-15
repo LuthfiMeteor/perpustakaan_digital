@@ -78,7 +78,7 @@
                 <!--/ Change Password -->
 
                 <!-- Recent Devices -->
-                <div class="card mb-4">
+                {{-- <div class="card mb-4">
                     <h5 class="card-header">Login History</h5>
                     <div class="table-responsive">
                         <table class="table">
@@ -110,9 +110,103 @@
                             </tbody>
                         </table>
                     </div>
+                </div> --}}
+                <div class="card">
+                    <!-- Billing History -->
+                    <h5 class="card-header">Login History</h5>
+                    <div class="card-datatable table-responsive">
+                        <table class="invoice-list-table table border-top">
+                            <thead>
+                                <tr>
+                                    {{-- <th scope="col">#</th> --}}
+                                    <th scope="col">IP Address</th>
+                                    <th scope="col">Device</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Login at</th>
+                                    <th scope="col">Login Successfully</th>
+                                    <th scope="col">Logout at</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!--/ Billing History -->
                 </div>
                 <!--/ Recent Devices -->
             </div>
         </div>
     </div>
 @endsection
+@push('script')
+    <script src="{{ asset('asset-template/vendor/libs/jquery/jquery.js') }}"></script>
+
+    <script>
+        $(function() {
+            // Variable declaration for table
+            var dt_invoice_table = $('.invoice-list-table');
+
+            // Invoice datatable
+            if (dt_invoice_table.length) {
+                var dt_invoice = dt_invoice_table.DataTable({
+                    ajax: "{{ route('profile.login-history-datatable') }}", // JSON file to add data
+                    columns: [
+                        // {
+                        //     data: 'id'
+                        // },
+                        {
+                            data: 'ip_Address'
+                        },
+                        {
+                            data: 'device'
+                        },
+                        {
+                            data: 'location'
+                        }, {
+                            data: 'login_at'
+                        }, {
+                            data: 'login_success'
+                        }, {
+                            data: 'logout_at'
+                        }
+                    ],
+                    dom: '<"row ms-2 me-3"' +
+                        '<"col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start gap-2"l<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start mt-md-0 mt-3"B>>' +
+                        '<"col-12 col-md-6 d-flex align-items-center justify-content-end flex-column flex-md-row pe-3 gap-md-2"f<"invoice_status mb-3 mb-md-0">>' +
+                        '>t' +
+                        '<"row mx-2"' +
+                        '<"col-sm-12 col-md-6"i>' +
+                        '<"col-sm-12 col-md-6"p>' +
+                        '>',
+                    language: {
+                        sLengthMenu: 'Show _MENU_',
+                        search: '',
+                        searchPlaceholder: 'Search History'
+                    },
+                    // Buttons
+                    buttons: [{
+                        text: '<i class="ti ti-trash me-md-1"></i><span class="d-md-inline-block d-none">Empty Login History</span>',
+                        className: 'btn btn-danger',
+                        action: function(e, dt_invoice_table, button, config) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                        'content')
+                                }
+                            });
+                            $.ajax({
+                                url: "{{ route('profile.deleteHistoryLogin') }}",
+                                method: "POST",
+                                success: function(response) {
+                                    console.log('success');
+                                    dt_invoice_table.ajax.reload(); // Redraw the DataTable
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error deleting data:', error);
+                                }
+                            })
+                        }
+                    }],
+                });
+            }
+        });
+    </script>
+@endpush

@@ -35,7 +35,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
@@ -52,6 +52,9 @@ class User extends Authenticatable
     public function notifyAuthenticationLogVia()
     {
         return [ 'mail'];
+    }
+    public function check_membership(){
+        return $this->hasOne(MembershipModel::class);
     }
 }
 
