@@ -48,8 +48,14 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input class="form-control" type="text" id="email" name="email"
-                                        value="{{ Auth::user()->email }}" placeholder="contoh@example.com" />
+                                    <input class="form-control @error('email') is-invalid @enderror" type="text"
+                                        id="email" name="email" value="{{ Auth::user()->email }}"
+                                        placeholder="contoh@example.com" />
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="phoneNumber">Phone Number</label>

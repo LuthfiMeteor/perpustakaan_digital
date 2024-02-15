@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 use NumberFormatter;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
+use App\Rules\CheckNonactiveAccount;
 
 class ProfileController extends Controller
 {
@@ -30,7 +31,7 @@ class ProfileController extends Controller
         // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' =>  ['required', 'string', 'email', 'max:255', new CheckNonactiveAccount],
             'address' => 'nullable|string|max:255',
             'phoneNumber' => 'nullable|string|max:15',
             'uploadphoto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
