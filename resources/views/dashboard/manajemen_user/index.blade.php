@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('content')
-<div class="container-fluid mt-3">
+<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         @include('sweetalert::alert')
         <div class="col-12">

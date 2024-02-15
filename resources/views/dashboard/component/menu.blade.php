@@ -31,6 +31,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Dashboard</span>
         </li>
+        @role('admin')
+
         <li class="menu-item">
             <a href="{{ route('dashboard') }}"
                 class="menu-link {{ Request::route()->getName() == 'dashboard' ? 'active' : '' }}"
@@ -90,4 +92,5 @@
                 </li>
             </ul>
         </li>
+        @endrole
 </aside>

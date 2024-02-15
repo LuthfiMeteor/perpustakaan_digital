@@ -38,31 +38,34 @@ route::group(['middleware'=>'auth'], function(){
 
 route::group(['middleware' => 'auth'], function() {
     route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::middleware(['auth', 'role:admin'])->group(function () { 
+        route::get('manajemen-buku', [ManajemenBukuController::class, 'index'])->name('manajemenBuku');
+        route::get('manajemen-buku-json', [ManajemenBukuController::class, 'json'])->name('bukuJson');
+        route::get('manajemen-buku-lihat/{id}', [ManajemenBukuController::class, 'lihat'])->name('bukuLihat');
+        route::get('manajemen-buku-hapus/{id}', [ManajemenBukuController::class, 'hapus'])->name('bukuHapus');
+        route::post('manajemen-buku-add', [ManajemenBukuController::class, 'store'])->name('bukuAdd');
+        route::post('manajemen-buku-update', [ManajemenBukuController::class, 'update'])->name('bukuUpdate');
+        Route::get('/manajemen-buku-edit/{id}', [ManajemenBukuController::class, 'edit'])->name('bukuEdit');
+    
+        route::get('kategori', [KategoriController::class, 'index'])->name('kategori');
+        route::get('kategori-json', [KategoriController::class, 'json'])->name('kategoriJson');
+        route::post('manajemen-kategori-add', [KategoriController::class, 'store'])->name('kategoriAdd');
+        route::get('manajemen-kategori-hapus/{id}', [KategoriController::class, 'hapus'])->name('kategoriHapus');
+        Route::get('/manajemen-kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategoriEdit');
+        route::post('manajemen-kategori-update', [KategoriController::class, 'update'])->name('kategoriUpdate');
+    
+        route::get('manajemen-user', [ManajemenUserController::class, 'index'])->name('manajemenUser');
+        route::get('user-json', [ManajemenUserController::class, 'json'])->name('userJson');
+        route::get('manajemen-user-hapus/{id}', [ManajemenUserController::class, 'hapus'])->name('userHapus');
+        route::get('manajemen-user-edit/{id}', [ManajemenUserController::class, 'edit'])->name('userEdit');
+        route::post('manajemen-user-update', [ManajemenUserController::class, 'update'])->name('userUpdate');
+    
+        route::get('manajemen-no-user', [ManajemenUserNoAktifController::class, 'index'])->name('manajemenNoUser');
+        route::get('no-user-json', [ManajemenUserNoAktifController::class, 'json'])->name('userNoJson');
+        route::get('manajemen-no-user-hapus/{id}', [ManajemenUserNoAktifController::class, 'hapus'])->name('userNoHapus');
+    });
 
-    route::get('manajemen-buku', [ManajemenBukuController::class, 'index'])->name('manajemenBuku');
-    route::get('manajemen-buku-json', [ManajemenBukuController::class, 'json'])->name('bukuJson');
-    route::get('manajemen-buku-lihat/{id}', [ManajemenBukuController::class, 'lihat'])->name('bukuLihat');
-    route::get('manajemen-buku-hapus/{id}', [ManajemenBukuController::class, 'hapus'])->name('bukuHapus');
-    route::post('manajemen-buku-add', [ManajemenBukuController::class, 'store'])->name('bukuAdd');
-    route::post('manajemen-buku-update', [ManajemenBukuController::class, 'update'])->name('bukuUpdate');
-    Route::get('/manajemen-buku-edit/{id}', [ManajemenBukuController::class, 'edit'])->name('bukuEdit');
-
-    route::get('kategori', [KategoriController::class, 'index'])->name('kategori');
-    route::get('kategori-json', [KategoriController::class, 'json'])->name('kategoriJson');
-    route::post('manajemen-kategori-add', [KategoriController::class, 'store'])->name('kategoriAdd');
-    route::get('manajemen-kategori-hapus/{id}', [KategoriController::class, 'hapus'])->name('kategoriHapus');
-    Route::get('/manajemen-kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategoriEdit');
-    route::post('manajemen-kategori-update', [KategoriController::class, 'update'])->name('kategoriUpdate');
-
-    route::get('manajemen-user', [ManajemenUserController::class, 'index'])->name('manajemenUser');
-    route::get('user-json', [ManajemenUserController::class, 'json'])->name('userJson');
-    route::get('manajemen-user-hapus/{id}', [ManajemenUserController::class, 'hapus'])->name('userHapus');
-    route::get('manajemen-user-edit/{id}', [ManajemenUserController::class, 'edit'])->name('userEdit');
-    route::post('manajemen-user-update', [ManajemenUserController::class, 'update'])->name('userUpdate');
-
-    route::get('manajemen-no-user', [ManajemenUserNoAktifController::class, 'index'])->name('manajemenNoUser');
-    route::get('no-user-json', [ManajemenUserNoAktifController::class, 'json'])->name('userNoJson');
-    route::get('manajemen-no-user-hapus/{id}', [ManajemenUserNoAktifController::class, 'hapus'])->name('userNoHapus');
 
     route::prefix('dashboard')->group(function() {
         route::get('profile', [ProfileController::class, 'profile'])->name('profile');
