@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles, AuthenticationLoggable;
 
 
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -51,10 +51,18 @@ class User extends Authenticatable
 
     public function notifyAuthenticationLogVia()
     {
-        return [ 'mail'];
+        return ['mail'];
     }
-    public function check_membership(){
+    public function check_membership()
+    {
         return $this->hasOne(MembershipModel::class);
     }
+    public function favoritBy()
+    {
+        return $this->hasOne(FavoritModel::class, 'user_id', 'id');
+    }
+    public function komentarBy()
+    {
+        return $this->hasOne(KomentarModel::class, 'user_id', 'id');
+    }
 }
-

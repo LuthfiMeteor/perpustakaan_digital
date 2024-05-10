@@ -67,7 +67,7 @@ class GoogleController extends Controller
                 return redirect()->route('google.setup');
             }
             Auth::login($authUser, true);
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
     }
     private function getSocialAvatar($file, $path, $userId)
@@ -99,6 +99,6 @@ class GoogleController extends Controller
     $user->password = Hash::make($request->password);
     $user->save(); // Use save() instead of update()
 
-    return redirect(route('dashboard'));
+    return redirect(route('landing'));
 }
 }

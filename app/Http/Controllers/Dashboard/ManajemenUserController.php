@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class ManajemenUserController extends Controller
     }
 
 
-    public function edit ($id) 
+    public function edit ($id)
     {
 
         $data = user::where('id', '=', $id)->first();
@@ -43,7 +44,7 @@ class ManajemenUserController extends Controller
             alert::warning('Pastikan data sesuai');
             return redirect()->back();
         }
-        
+
         DB::beginTransaction();
         try {
             $data = user::where('id', '=', $request->id)
@@ -56,10 +57,10 @@ class ManajemenUserController extends Controller
                 $data->password = Hash::make($request->password);
             }
 
-            
+
             $data->save();
 
-        
+
             DB::commit();
             Alert::success('Sukses Edit Data');
             return redirect()->back();
@@ -119,7 +120,7 @@ class ManajemenUserController extends Controller
             </button>';
         })
         ->rawColumns(['name','email','edit'])
-        ->toJson();     
+        ->toJson();
     }
-    
+
 }

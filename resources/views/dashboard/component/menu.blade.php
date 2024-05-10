@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="{{ route('landing') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -15,7 +15,7 @@
                         fill="#7367F0" />
                 </svg>
             </span>
-            <span class="app-brand-text demo menu-text fw-bold">Vuexy</span>
+            {{-- <span class="app-brand-text demo menu-text fw-bold">Vuexy</span> --}}
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -31,8 +31,6 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Dashboard</span>
         </li>
-        @role('admin')
-
         <li class="menu-item">
             <a href="{{ route('dashboard') }}"
                 class="menu-link {{ Request::route()->getName() == 'dashboard' ? 'active' : '' }}"
@@ -41,56 +39,67 @@
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a class="menu-link
+        @role('user')
+            <li class="menu-item">
+                <a href="{{ route('favoriteList') }}"
+                    class="menu-link {{ Request::route()->getName() == 'favoriteList' ? 'active' : '' }}"
+                    style="{{ Request::route()->getName() == 'favoriteList' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                    <i class="menu-icon tf-icons ti ti-heart"></i>
+                    <div data-i18n="favoriteList">Favorite</div>
+                </a>
+            </li>
+        @endrole
+        @role('admin')
+            <li class="menu-item">
+                <a class="menu-link
             {{ Request::route()->getName() == 'manajemenBuku' ? 'active' : '' }}
             {{ Request::route()->getName() == 'bukuEdit' ? 'active' : '' }}
             "
-                href="{{ route('manajemenBuku') }}"
-                style="
+                    href="{{ route('manajemenBuku') }}"
+                    style="
             {{ Request::route()->getName() == 'manajemenBuku' ? 'background-color: #4A2D14; color: white;' : '' }}
             {{ Request::route()->getName() == 'bukuEdit' ? 'background-color: #4A2D14; color: white;' : '' }}
             ">
-                <i class="menu-icon tf-icons  ti ti-book"></i>
-                <div data-i18n="Book Management">Book Management</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="{{ route('kategori') }}"
-                class="menu-link {{ Request::route()->getName() == 'kategori' ? 'active' : '' }}"
-                style="{{ Request::route()->getName() == 'kategori' ? 'background-color: #4A2D14; color: white;' : '' }}">
-                <i class="menu-icon tf-icons ti ti-pencil"></i>
-                <div data-i18n="kategori">Kategori</div>
-            </a>
-        </li>
-        <li class="menu-item
+                    <i class="menu-icon tf-icons  ti ti-book"></i>
+                    <div data-i18n="Book Management">Book Management</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('kategori') }}"
+                    class="menu-link {{ Request::route()->getName() == 'kategori' ? 'active' : '' }}"
+                    style="{{ Request::route()->getName() == 'kategori' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                    <i class="menu-icon tf-icons ti ti-pencil"></i>
+                    <div data-i18n="kategori">Category</div>
+                </a>
+            </li>
+            <li
+                class="menu-item
             {{ Request::route()->getName() == 'manajemenNoUser' ? 'active open' : '' }}
-            {{ Request::route()->getName() == 'manajemenUser' ? 'active open' : '' }}"
-            >
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-user"></i>
-                <div data-i18n="Academy">Manajemen User</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('manajemenUser') }}"
-                        class="menu-link {{ Request::route()->getName() == 'manajemenUser' ? 'active' : '' }}"
-                        style="{{ Request::route()->getName() == 'manajemenUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
-                        <i class="menu-icon tf-icons ti ti-user"></i>
-                        <div data-i18n="manajemenUser">User Active</div>
-                    </a>
-                </li>
-            </ul>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('manajemenNoUser') }}"
-                        class="menu-link {{ Request::route()->getName() == 'manajemenNoUser' ? 'active' : '' }}"
-                        style="{{ Request::route()->getName() == 'manajemenNoUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
-                        <i class="menu-icon tf-icons ti ti-user"></i>
-                        <div data-i18n="manajemenNoUser">User Non Active</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            {{ Request::route()->getName() == 'manajemenUser' ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-user"></i>
+                    <div data-i18n="Academy">User Management</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('manajemenUser') }}"
+                            class="menu-link {{ Request::route()->getName() == 'manajemenUser' ? 'active' : '' }}"
+                            style="{{ Request::route()->getName() == 'manajemenUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                            <i class="menu-icon tf-icons ti ti-user"></i>
+                            <div data-i18n="manajemenUser">User Active</div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('manajemenNoUser') }}"
+                            class="menu-link {{ Request::route()->getName() == 'manajemenNoUser' ? 'active' : '' }}"
+                            style="{{ Request::route()->getName() == 'manajemenNoUser' ? 'background-color: #4A2D14; color: white;' : '' }}">
+                            <i class="menu-icon tf-icons ti ti-user"></i>
+                            <div data-i18n="manajemenNoUser">User Non Active</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         @endrole
 </aside>

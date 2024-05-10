@@ -7,7 +7,8 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Perpustakaan</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Digital Library</title>
 
     <meta name="description" content="" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
